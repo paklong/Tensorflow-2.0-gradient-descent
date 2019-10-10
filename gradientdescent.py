@@ -1,5 +1,4 @@
 import tensorflow as tf
-from tensorflow.keras import Sequential 
 
 def fu(x1, x2): 
 	return x1 ** 2.0 - x1 * 3  + x2 ** 2
@@ -13,7 +12,7 @@ def reset():
 	return x1, x2
 
 
-# #Way1: without optimizers, pure math computation
+#Way1: without optimizers, pure math computation
 x1, x2 = reset()
 for i in range(50):	
 	with tf.GradientTape() as tape:
@@ -23,7 +22,7 @@ for i in range(50):
 	x1.assign(x1 - 0.1*grads[0].numpy())
 	x2.assign(x2 - 0.1*grads[1].numpy())
 
-# #Way2: with optimizers biut without minimize funciton
+#Way2: with optimizers biut without minimize funciton
 x1, x2 = reset()
 for i in range(50):
 	opt = tf.keras.optimizers.SGD(learning_rate=0.1)
@@ -42,5 +41,3 @@ opt = tf.keras.optimizers.SGD(learning_rate=0.1)
 for i in range(50):
 	print ('y = {:.1f}, x1 = {:.1f}, x2 = {:.1f}'.format(fu(x1, x2).numpy(), x1.numpy(), x2.numpy()))
 	opt.minimize(fu_minimzie, var_list=[x1, x2])
-
-
